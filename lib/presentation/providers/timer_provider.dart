@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class TimerProvider extends ChangeNotifier {
   late Timer timer;
   int time = 0;
-  bool isPaused = false;
+  bool isPaused = true;
   bool isRunning = false;
 
   void startTimer() {
@@ -25,7 +25,7 @@ class TimerProvider extends ChangeNotifier {
 
   void restartTimer() {
     time = 0;
-    isPaused = false;
+    isPaused = true;
     isRunning = false;
     notifyListeners();
   }
@@ -39,7 +39,7 @@ class TimerProvider extends ChangeNotifier {
     final minutes = ((time / 1000) / 60).floor().toString().padLeft(2, '0');
     final seconds = ((time / 1000) % 60).floor().toString().padLeft(2, '0');
     final milliseconds =
-        (time % 1000).floor().toString().padLeft(2).substring(0, 2);
+        (time % 1000).floor().toString().padLeft(2, '0').substring(0, 2);
 
     if (hours == '00') {
       return "$minutes:$seconds.$milliseconds";

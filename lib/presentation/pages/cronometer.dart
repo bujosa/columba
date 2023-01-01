@@ -15,41 +15,82 @@ class _CronometerState extends State<Cronometer> {
     final timerProvider = Provider.of<TimerProvider>(context);
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text(
-          context
-              .select((TimerProvider timeProvider) => timeProvider.currentTime),
-          style: const TextStyle(
+        const Text(
+          'Columba Timer',
+          style: TextStyle(
             color: Colors.white,
-            fontSize: 60,
+            fontSize: 65,
+            fontFamily: 'Caveat',
+            fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                timerProvider.startTimer();
-              },
-              child: const Text('Start'),
-            ),
-            const SizedBox(width: 20),
-            ElevatedButton(
-              onPressed: () {
-                timerProvider.pauseTimer();
-              },
-              child: const Text('Pause'),
-            ),
-            const SizedBox(width: 20),
-            ElevatedButton(
-              onPressed: () {
-                timerProvider.restartTimer();
-              },
-              child: const Text('Restart'),
-            ),
-          ],
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text(
+                context.select(
+                    (TimerProvider timeProvider) => timeProvider.currentTime),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 75,
+                ),
+              )),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.transparent),
+                ),
+                onPressed: () {
+                  timerProvider.restartTimer();
+                },
+                child: const Icon(
+                  Icons.restart_alt,
+                  color: Colors.orange,
+                  size: 80,
+                ),
+              ),
+              timerProvider.isPaused
+                  ? ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.transparent),
+                      ),
+                      onPressed: () {
+                        timerProvider.startTimer();
+                      },
+                      child: const Icon(
+                        Icons.play_circle_outline,
+                        color: Colors.green,
+                        size: 80,
+                      ),
+                    )
+                  : ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.transparent),
+                      ),
+                      onPressed: () {
+                        timerProvider.pauseTimer();
+                      },
+                      child: const Icon(
+                        Icons.pause_circle_outline,
+                        color: Colors.red,
+                        size: 80,
+                      ),
+                    ),
+            ],
+          ),
+        ]),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.01,
         ),
       ],
     );
