@@ -10,8 +10,8 @@ class TimerProvider extends ChangeNotifier {
   void startTimer() {
     isPaused = false;
     isRunning = true;
-    timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
-      isPaused ? timer.cancel() : time += 100;
+    timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+      isPaused ? timer.cancel() : time += 10;
       notifyListeners();
     });
   }
@@ -30,28 +30,21 @@ class TimerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void resumeTimer() {
-    if (!isPaused) return;
-    isPaused = false;
-    startTimer();
-    notifyListeners();
-  }
-
   String get currentTime {
     if (!isRunning) {
-      return '00:00:00:00';
+      return '00:00.00';
     }
-    // Miliseconds to hours, minutes, seconds and miliseconds
+
     final hours = ((time / 1000) / 60 / 60).floor().toString().padLeft(2, '0');
     final minutes = ((time / 1000) / 60).floor().toString().padLeft(2, '0');
     final seconds = ((time / 1000) % 60).floor().toString().padLeft(2, '0');
-    final milliseconds = (time % 1000).floor().toString().padLeft(2, '0');
+    final milliseconds =
+        (time % 1000).floor().toString().padLeft(2).substring(0, 2);
 
-    // final hours = ((time / 60) / 60).floor().toString().padLeft(2, '0');
-    // final minutes = ((time / 60) % 60).floor().toString().padLeft(2, '0');
-    // final seconds = (time % 60).floor().toString().padLeft(2, '0');
-    // final milliseconds = (time % 100).floor().toString().padLeft(2, '0');
+    if (hours == '00') {
+      return "$minutes:$seconds.$milliseconds";
+    }
 
-    return "$hours:$minutes:$seconds:$milliseconds";
+    return "$hours:$minutes:$seconds.$milliseconds";
   }
 }
