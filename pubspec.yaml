@@ -71,6 +71,10 @@ flutter:
         - asset: fonts/Montserrat-Italic-VariableFont_wght.ttf
         - asset: fonts/Montserrat-VariableFont_wght.ttf
           style: italic
+    - family: Caveat
+      fonts:
+        - asset: fonts/Caveat-VariableFont_wght.ttf
+      
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
