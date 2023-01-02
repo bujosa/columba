@@ -6,4 +6,4 @@ This app contain in the main, timeProvider for notify the app when the time chan
 and control the status for the timer. 
 
 ## Cronometer Widget
-<center> <img src="images/columba.gif" alt="Columba app" witdh="300" height="300"/> </center>
+<center> <img src="images/columba.gif" alt="Columba app" witdh="300" height="400"/> </center>
